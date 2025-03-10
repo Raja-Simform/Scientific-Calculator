@@ -101,8 +101,8 @@ body {
 }
 .function-btn {
   display: flex;
-  height: var(--btn-height);
   width: 100%;
+  height: 3.2rem;
 }
 .trignometry {
   height: var(--btn-height);
@@ -151,6 +151,12 @@ body {
   background-color: var(--btn-highlight);
   font-weight: bold;
   font-size: 1.2rem;
+}
+#arrow-down{
+    height: 1rem;
+}
+span:hover{
+    cursor:default;
 }
 @media (max-width: 500px) {
   .calculator {
