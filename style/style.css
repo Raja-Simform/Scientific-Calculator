@@ -1,174 +1,172 @@
-*{
-    margin:0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-:root{
-    --calculator-bg-color: #f5f5f5;
-    --box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    --btn-height:3rem;
-    --btn-width:19%;
-    --btn-font-size:1.1rem;
-    --btn-font-weight:bold;
-    --hover-bg-color: #e7e7e7;
-    --shadow-color:#e4dcdc;
+:root {
+  --calculator-bg-color: #f5f5f5;
+  --box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  --btn-height: 3rem;
+  --btn-width: 19%;
+  --btn-font-size: 1.1rem;
+  --btn-font-weight: bold;
+  --hover-bg-color: #e7e7e7;
+  --shadow-color: #e4dcdc;
+  --btn-background: #f9f9fa;
+  --btn-highlight: #ffffff;
 }
-body{
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: Segoe UI, sans-serif;
+body {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Segoe UI, sans-serif;
 }
-.calculator{
-   height:36.5rem;
-   width:25rem;
-   background-color: var(--calculator-bg-color);
+.calculator {
+  height: 36.5rem;
+  width: 25rem;
+  background-color: var(--calculator-bg-color);
 }
-.header{
-    height: 15%;
-    width: 100%;
+.header {
+  height: 14%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 10px;
 }
-.btn{
-    height: 90%;
-    width: 100%;
+.result {
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+  text-align: right;
+  font-size: 40px;
 }
-.result{
-    width: fit-content;
-    margin-left:auto ;
-    margin-right: 10px;
-    font-size: 60px;
-
+.btn {
+  height: 90%;
+  width: 100%;
 }
-.toggle-btn{
-    width: 100%;
-    height: 10%;
-    display: flex;
-    align-items: center;
+.toggle-btn {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  align-items: center;
 }
-.unit{
-    width: var(--btn-width);
-    height: var(--btn-height);
-    border: none;
-    background-color:var(--calculator-bg-color);
-    font-size: var(--btn-font-size);
-    font-weight: 600;
-    
+.unit {
+  width: var(--btn-width);
+  height: var(--btn-height);
+  border: none;
+  background-color: var(--calculator-bg-color);
+  font-size: var(--btn-font-size);
+  font-weight: 600;
 }
-.unit:hover{
-    background-color: var(--hover-bg-color);
+.unit:hover {
+  background-color: var(--hover-bg-color);
 }
-.scientific-result{
-    width: var(--btn-width);
-    height: var(--btn-height);
-    border: none;
-    background-color: var(--background-calc);
-    font-size: var(--btn-font-size);
-    font-weight: 700;
-   
+.scientific-result {
+  width: var(--btn-width);
+  height: var(--btn-height);
+  border: none;
+  background-color: var(--background-calc);
+  font-size: var(--btn-font-size);
+  font-weight: 700;
 }
-.scientific-result:hover{
-    background-color: var(--hover-bg-color);
+.scientific-result:hover {
+  background-color: var(--hover-bg-color);
 }
-.memory-btn{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2%;
+.memory-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2%;
 }
-.btn-shadow{
-    color: var(--shadow-color);
+.btn-shadow {
+  color: var(--shadow-color);
 }
-.btn-col1{
-    height: var(--btn-height);
-    width: var(--btn-width);
-    border: none;
-    background-color: var(--background-calc);
-    font-size: var(--btn-font-size);
-    font-weight: var(--btn-font-weight);
+.btn-col1 {
+  height: var(--btn-height);
+  width: var(--btn-width);
+  border: none;
+  background-color: var(--background-calc);
+  font-size: var(--btn-font-size);
+  font-weight: var(--btn-font-weight);
 }
-.btn-col1:hover{
-    background-color: var(--hover-bg-color);
+.btn-col1:hover {
+  background-color: var(--hover-bg-color);
 }
-.btn-col:hover{
-    background-color: var(--hover-bg-color);
+.btn-col:hover {
+  background-color: var(--hover-bg-color);
 }
-.function-btn{
-    display: flex;
-    height: var(--btn-height);
-    width: 100%;
+.function-btn {
+  display: flex;
+  height: var(--btn-height);
+  width: 100%;
 }
-.trignometry{
-    height:var(--btn-height);
-    width: 36%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-   
+.trignometry {
+  height: var(--btn-height);
+  width: 36%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 }
-.trignometry > img{
-    height: 1rem;
-    width: 1rem;
+.trignometry > img {
+  height: 1rem;
+  width: 1rem;
 }
-.functions{
-    height:var(--btn-height);
-    width: 36%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    
+.functions {
+  height: var(--btn-height);
+  width: 36%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
-
-.trignometry:hover{
-    background-color: var(--hover-bg-color);
+.trignometry:hover {
+  background-color: var(--hover-bg-color);
 }
-.functions:hover{
-    background-color: var(--hover-bg-color);
+.functions:hover {
+  background-color: var(--hover-bg-color);
 }
-
-.btn-row{
-    display: grid;
-    grid-template-columns: repeat(5,1fr);
-    width: 100%;
+.btn-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  width: 100%;
+  background-color: var(--background-calc);
 }
-.btn-col{
-    height: var(--btn-height);
-    border: none;
-    background-color: var(#ffffff);
-    margin-bottom: 2px;
-    margin-right: 2px;
+.btn-col {
+  height: var(--btn-height);
+  border: none;
+  background-color: var(--btn-background);
+  margin-bottom: 2px;
+  margin-right: 2px;
+  font-size: 1rem;
 }
-.btn-blue{
-    background-color:rgb(125, 170, 207);
+.btn-blue {
+  background-color: rgb(125, 170, 207);
 }
-
-
-@media(max-width:500px){
-    .calculator{
-        width: 90%;
-    }
+.btn-dark {
+  background-color: var(--btn-highlight);
+  font-weight: bold;
+  font-size: 1.2rem;
 }
-@media(max-height:650px){
-    .calculator{
-        height: 100%;
-    }
+@media (max-width: 500px) {
+  .calculator {
+    width: 90%;
+  }
 }
-@media(max-width:400px){
-    .trignometry{
-        width: 50%;
-    }
-    .functions{
-        width: 50%;
-    }
+@media (max-height: 650px) {
+  .calculator {
+    height: 100%;
+  }
 }
-
-
-
-
-
-
-
+@media (max-width: 400px) {
+  .trignometry {
+    width: 50%;
+  }
+  .functions {
+    width: 50%;
+  }
+}
