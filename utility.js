@@ -156,11 +156,24 @@ function btnhandler(val){
     else if(val==='mod'){
         expression+='mod';
     }
-    else if(val==='mod'){
-        expression+='mod';
+    else if(val==='sin'){
+        expression+='Math.sin(';
     }
-    
-
+    else if(val==='cos'){
+        expression+='Math.cos(';
+    }
+    else if(val==='tan'){
+        expression+='Math.tan(';
+    }
+    else if(val==='abs'){
+        expression+='Math.abs(';
+    }
+    else if(val==='ceil'){
+        expression+='Math.ceil(';
+    }
+    else if(val==='floor'){
+        expression+='Math.floor(';
+    }
     else{
         if(expression==='0' || expression==="Error"){
             expression=val;
@@ -169,12 +182,8 @@ function btnhandler(val){
             expression+=val;
         }
     }
-    
-   
-    
     console.log(expression)
     display();
-
 }
 display();
 function evaluate(expr){
