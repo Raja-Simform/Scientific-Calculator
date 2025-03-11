@@ -1,0 +1,220 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --calculator-bg-color: #f5f5f5;
+  --box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  --btn-height: 3rem;
+  --btn-width: 19%;
+  --btn-font-size: 1.1rem;
+  --btn-font-weight: bold;
+  --hover-bg-color: #e7e7e7;
+  --shadow-color: #e4dcdc;
+  --btn-background: #f9f9fa;
+  --btn-highlight: #ffffff;
+}
+body {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Segoe UI, sans-serif;
+}
+.calculator {
+  height: 36.5rem;
+  width: 25rem;
+  background-color: var(--calculator-bg-color);
+}
+.header {
+  height: 14%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 10px;
+}
+.result {
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+  text-align: right;
+  font-size: 40px;
+}
+.btn {
+  height: 90%;
+  width: 100%;
+}
+.toggle-btn {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+}
+.unit {
+  width: var(--btn-width);
+  height: var(--btn-height);
+  border: none;
+  background-color: var(--calculator-bg-color);
+  font-size: var(--btn-font-size);
+  font-weight: 600;
+}
+.unit:hover {
+  background-color: var(--hover-bg-color);
+}
+.scientific-result {
+  width: var(--btn-width);
+  height: var(--btn-height);
+  border: none;
+  background-color: var(--background-calc);
+  font-size: var(--btn-font-size);
+  font-weight: 700;
+}
+.scientific-result:hover {
+  background-color: var(--hover-bg-color);
+}
+.memory-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2%;
+}
+.btn-shadow {
+  color: var(--shadow-color);
+}
+.btn-col1 {
+  height: var(--btn-height);
+  width: var(--btn-width);
+  border: none;
+  background-color: var(--background-calc);
+  font-size: var(--btn-font-size);
+  font-weight: var(--btn-font-weight);
+}
+.btn-col1:hover {
+  background-color: var(--hover-bg-color);
+}
+.btn-col:hover {
+  background-color: var(--hover-bg-color);
+}
+.function-btn {
+  display: flex;
+  width: 100%;
+  height: 3.2rem;
+}
+.btn-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  width: 100%;
+  background-color: var(--background-calc);
+}
+.btn-col {
+  height: var(--btn-height);
+  border: none;
+  background-color: var(--btn-background);
+  margin-bottom: 2px;
+  margin-right: 2px;
+  font-size: 1rem;
+}
+.btn-blue {
+  background-color: rgb(125, 170, 207);
+}
+.btn-dark {
+  background-color: var(--btn-highlight);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+#arrow-down {
+  height: 1rem;
+}
+span:hover {
+  cursor: default;
+}
+.func-dropdown {
+  position: relative;
+  height: var(--btn-height);
+  width: 36%;
+}
+.trigno-dropdown {
+  position: relative;
+  height: var(--btn-height);
+  width: 36%;
+}
+.trigno-dropbtn {
+  border: none;
+  width: 100%;
+  height: 100%;
+  background-color: var(--background-calc);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  font-size: var(--btn-font-size);
+}
+.trigno-dropbtn > img {
+  height: 1rem;
+  width: 1rem;
+}
+.func-dropbtn {
+  border: none;
+  width: 100%;
+  height: 100%;
+  background-color: var(--background-calc);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: var(--btn-font-size);
+}
+.func-dropbtn > img {
+  height: 1rem;
+  width: 1rem;
+}
+.trigno-dropbtn:hover,
+.func-dropbtn:hover {
+  background-color: var(--hover-bg-color);
+}
+.trigno-dropdown-content,
+.func-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  width: 100%;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+.trigno-dropdown-content a,
+.func-dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.trigno-dropdown-content a:hover,
+.func-dropdown-content a:hover {
+  background-color: #ddd;
+}
+.show-trigno,
+.show-func {
+  display: block;
+}
+@media (max-width: 500px) {
+  .calculator {
+    width: 90%;
+  }
+}
+@media (max-height: 650px) {
+  .calculator {
+    height: 100%;
+  }
+}
+@media (max-width: 425px) {
+  .trigno-dropdown {
+    width: 50%;
+  }
+  .func-dropdown {
+    width: 50%;
+  }
+}
