@@ -104,7 +104,6 @@ body {
   width: 100%;
   height: 3.2rem;
 }
-
 .btn-row {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -136,14 +135,13 @@ span:hover {
 .func-dropdown {
   position: relative;
   height: var(--btn-height);
-  width: 33%;
+  width: 36%;
 }
 .trigno-dropdown {
   position: relative;
   height: var(--btn-height);
-  width: 33%;
+  width: 36%;
 }
-
 .trigno-dropbtn {
   border: none;
   width: 100%;
@@ -152,6 +150,8 @@ span:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 3px;
+  font-size: var(--btn-font-size);
 }
 .trigno-dropbtn > img {
   height: 1rem;
@@ -165,6 +165,8 @@ span:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 5px;
+  font-size: var(--btn-font-size);
 }
 .func-dropbtn > img {
   height: 1rem;
