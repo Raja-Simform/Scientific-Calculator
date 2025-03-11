@@ -62,44 +62,48 @@
           <button class="btn-col1" aria-label="Memory store">MS</button>
         </nav>
         <nav class="function-btn" aria-label="Function menus">
-          <div
-            class="trignometry"
-            role="button"
-            tabindex="0"
-            aria-label="Trigonometry functions menu"
-          >
-            <img
-              src="./assets/right-angle-svgrepo-com.svg"
-              alt=""
-              aria-hidden="true"
-            />
-            <span>Trignometry</span>
-            <img
-              src="./assets/arrow-down.svg"
-              alt=""
-              aria-hidden="true"
-              id="arrow-down"
-            />
+          <div class="trigno-dropdown" aria-label="Trigonometry functions menu">
+            <button class="trigno-dropbtn">
+              <img
+                src="./assets/right-angle-svgrepo-com.svg"
+                alt=""
+                aria-hidden="true"
+              />
+              <span>Trignometry</span>
+              <img
+                src="./assets/arrow-down.svg"
+                alt=""
+                aria-hidden="true"
+                id="arrow-down"
+              />
+            </button>
+            <div id="trigno-myDropdown" class="trigno-dropdown-content">
+              <a href="#">Sin</a>
+              <a href="#">Cos</a>
+              <a href="#">tan</a>
+            </div>
           </div>
-          <div
-            class="functions"
-            role="button"
-            tabindex="0"
-            aria-label="Functions menu"
-          >
-            <img
-              src="./assets/function.svg"
-              alt=""
-              aria-hidden="true"
-              id="arrow-down"
-            />
-            <span>Functions</span>
-            <img
-              src="./assets/arrow-down.svg"
-              alt=""
-              aria-hidden="true"
-              id="arrow-down"
-            />
+          <div class="func-dropdown" aria-label="Functions menu">
+            <button class="func-dropbtn">
+              <img
+                src="./assets/function.svg"
+                alt=""
+                aria-hidden="true"
+                id="arrow-down"
+              />
+              <span>Functions</span>
+              <img
+                src="./assets/arrow-down.svg"
+                alt=""
+                aria-hidden="true"
+                id="arrow-down"
+              />
+            </button>
+            <div id="func-myDropdown" class="func-dropdown-content">
+              <a href="#">abs</a>
+              <a href="#">Ceil</a>
+              <a href="#">floor</a>
+            </div>
           </div>
         </nav>
         <section class="keypad" aria-label="Calculator keypad">
@@ -168,5 +172,6 @@
       </div>
     </main>
     <script src="script.js"></script>
+    <script src="utility.js"></script>
   </body>
 </html>
