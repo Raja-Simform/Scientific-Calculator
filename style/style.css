@@ -29,7 +29,7 @@ body {
   background-color: var(--calculator-bg-color);
 }
 .header {
-  height: 14%;
+  height: 15%;
   width: 100%;
   display: flex;
   align-items: center;
@@ -44,7 +44,7 @@ body {
   font-size: 40px;
 }
 .btn {
-  height: 90%;
+  height: 80%;
   width: 100%;
 }
 .toggle-btn {
@@ -199,6 +199,13 @@ span:hover {
 .show-trigno,
 .show-func {
   display: block;
+}
+.result::-webkit-scrollbar {
+  height: 8px;
+}
+.result {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 @media (max-width: 500px) {
   .calculator {
