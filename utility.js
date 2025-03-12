@@ -1,231 +1,270 @@
-let result='';
-let expression="";
-let temp=0;
-const error="Error";
-function display(){    
-         document.querySelector('.result').textContent=expression;
-         console.log("display");
+let result = "";
+let expression = "";
+let temp = 0;
+let isRadian = false;
+let Error = "Error";
 
+function display() {
+  let resultDisplay = document.getElementById("calculator-display");
+  resultDisplay.textContent = expression || "0";
+  resultDisplay.scrollLeft = resultDisplay.scrollWidth;
 }
-document.querySelectorAll('.btn-col').forEach(btn=>{
-    btn.addEventListener('click',function(){
-        const text=this.value;
-          btnhandler(text);
-    
-    })
-}
-);
 
-function btnhandler(val){
-   if(val==='c'){
-    expression='';
-   }
-   else if(val==='='){
-    try{
-         temp=evaluate(expression)
-         result=temp;
-         expression=String(temp);
-    }
-    catch(error){
-       expression=error;
-    }
-   }
-   else if(val==='backspace'){
-     if(expression.length===1 || expression===error){
-          expression='0';
-     }
-     else{
-        expression=expression.slice(0,-1);
-     }
-   }
-   else if(val==='pi'){
-      if(expression==='0'){
-        expression='Math.PI'
+document
+  .querySelectorAll(".btn-col, .btn-col1, .btn-blue, .btn-dark")
+  .forEach((btn) => {
+    btn.addEventListener("click", function () {
+      const value = this.value;
+      if (value) {
+        btnhandler(value);
       }
-      else{
-        expression+='Math.PI';
+    });
+  });
+
+function btnhandler(val) {
+  if (val === "c") {
+    expression = "";
+  } else if (val === "=") {
+    try {
+      if (expression === "0" || expression === "") {
+        expression = "0";
+      } else {
+        temp = evaluateExpression(expression);
+        result = temp;
+        expression = String(temp);
       }
-   } 
-   else if(val==='e'){
-    if(expression==='0'){
-      expression='Math.E'
+    } catch (error) {
+      expression = Error;
     }
-    else{
-      expression+='Math.E';
+  } else if (val === "backspace") {
+    if (expression.length === 1 || expression === "Error") {
+      expression = "0";
+    } else {
+      expression = expression.slice(0, -1);
     }
+  } else if (val === "pi") {
+    insertValue(Math.PI);
+  } else if (val === "e") {
+    insertValue(Math.E);
+  } else if (val === "square") {
+    try {
+      temp = Math.pow(evaluateExpression(expression), 2);
+      expression = String(temp);
+    } catch (error) {
+      expression = Error;
     }
-    else if(val==='square'){
-        if(expression==='0'){
-          expression='0'
+  } else if (val === "squareroot") {
+    try {
+      temp = Math.sqrt(evaluateExpression(expression));
+      expression = String(temp);
+    } catch (error) {
+      expression = Error;
+    }
+  } else if (val === "inverse") {
+    try {
+      temp = 1 / evaluateExpression(expression);
+      expression = String(temp);
+    } catch (error) {
+      expression = Error;
+    }
+  } else if (val === "abs") {
+    try {
+      temp = Math.abs(evaluateExpression(expression));
+      expression = String(temp);
+    } catch (error) {
+      expression = Error;
+    }
+  } else if (val === "factorial") {
+    try {
+      temp = evaluateExpression(expression);
+      if (temp < 0 || !Number.isInteger(temp)) {
+        expression = Error;
+      } else {
+        let fac = 1;
+        for (let i = 2; i <= temp; i++) {
+          fac = fac * i;
         }
-        else{
-          try{
-            temp=Math.pow(evaluate(expression),2);
-            expression=String(temp);
-          }
-          catch(error){
-            expression=error;
-          }
-        }
+        expression = String(fac);
+      }
+    } catch (error) {
+      expression = Error;
     }
-   
-    else if(val==='squarerrot'){
-        if(expression==='0'){
-          expression='√(';
-        }
-        else{
-            expression+='√(';  
-        }
+  } else if (val === "log") {
+    try {
+      temp = Math.log10(evaluateExpression(expression));
+      expression = String(temp);
+    } catch (error) {
+      expression = Error;
     }
-    else if(val==='inverse'){
-        if(expression==='0'){
-          expression=error;
-        }
-        else{
-            try{
-                temp=1/evaluate(expression);
-                expression=String(temp);
-            }
-            catch(error){
-               expression=error;
-            }  
-        }
+  } else if (val === "ln") {
+    try {
+      temp = Math.log(evaluateExpression(expression));
+      expression = String(temp);
+    } catch (error) {
+      expression = Error;
     }
-    else if(val==='abs'){
-        expression=`|${expression}|`;
+  } else if (val === "10x") {
+    try {
+      temp = Math.pow(10, evaluateExpression(expression));
+      expression = String(temp);
+    } catch (error) {
+      expression = Error;
     }
-    else if(val==='factorial'){
-        try{
-                temp=evaluate(expression);
-                if(temp < 0 || !Number.isInteger(temp)){
-                    expression="Error";
-                }
-                else{
-                    let fac=1;
-                    for(let i=2;i<=temp;i++){
-                        fac=fac*i;
-                    }
-                    expression=String(fac);
-                }
-        }
-        catch(error){
-               expression='Error';
-        }  
+  } else if (val === "xy") {
+    expression += "^";
+  } else if (
+    val === "+" ||
+    val === "-" ||
+    val === "*" ||
+    val === "(" ||
+    val === ")" ||
+    val === "."
+  ) {
+    expression += val;
+  } else if (val === "divide") {
+    expression += "/";
+  } else if (val === "mod") {
+    expression += "%";
+  } else if (val === "sin") {
+    try {
+      let angle = evaluateExpression(expression);
+      if (!isRadian) {
+        angle = (angle * Math.PI) / 180;
+      }
+      temp = Math.sin(angle);
+      expression = String(temp);
+    } catch (error) {
+      expression = Error;
     }
-    else if(val==='log'){
-        if(expression==='0'){
-            expression='log(';
-        }
-        else{
-            expression+='log(';
-        }
+  } else if (val === "cos") {
+    try {
+      let angle = evaluateExpression(expression);
+      if (!isRadian) {
+        angle = (angle * Math.PI) / 180;
+      }
+      temp = Math.cos(angle);
+      expression = String(temp);
+    } catch (error) {
+      expression = Error;
     }
-    else if(val==='ln'){
-        if(expression==='0'){
-            expression='ln(';
-        }
-        else{
-            expression+='ln(';
-        }
+  } else if (val === "tan") {
+    try {
+      let angle = evaluateExpression(expression);
+      if (!isRadian) {
+        angle = (angle * Math.PI) / 180;
+      }
+      temp = Math.tan(angle);
+      expression = String(temp);
+    } catch (error) {
+      expression = Error;
     }
-    else if(val==='10x'){
-        try{
-            const temp=Math.pow(10,evaluate(expression));
-            expression=String(temp);
+  } else if (val === "ceil") {
+    try {
+      temp = Math.ceil(evaluateExpression(expression));
+      expression = String(temp);
+    } catch (error) {
+      expression = Error;
     }
-    catch(error){
-           expression='Error';
-    }  
+  } else if (val === "floor") {
+    try {
+      temp = Math.floor(evaluateExpression(expression));
+      expression = String(temp);
+    } catch (error) {
+      expression = Error;
     }
-     
-    else if(val==='xy'){
-        expression+='^';
+  } else if (val === "exponential") {
+    try {
+      temp = Math.exp(evaluateExpression(expression));
+      expression = String(temp);
+    } catch (error) {
+      expression = Error;
     }
-    else if(val==='+'){
-        expression+='+';
+  } else if (val === "+/-") {
+    try {
+      temp = -1 * evaluateExpression(expression);
+      expression = String(temp);
+    } catch (error) {
+      expression = Error;
     }
-    else if(val==='-'){
-        expression+='-';
+  } else {
+    if (expression === "0" || expression === "Error") {
+      expression = val;
+    } else {
+      expression += val;
     }
-    else if(val==='*'){
-        expression+='*';
-    }
-    else if(val==='divide'){
-        expression+='/';
-    }
-    else if(val==='mod'){
-        expression+='mod';
-    }
-    else if(val==='sin'){
-        expression+='Math.sin(';
-    }
-    else if(val==='cos'){
-        expression+='Math.cos(';
-    }
-    else if(val==='tan'){
-        expression+='Math.tan(';
-    }
-    else if(val==='abs'){
-        expression+='Math.abs(';
-    }
-    else if(val==='ceil'){
-        expression+='Math.ceil(';
-    }
-    else if(val==='floor'){
-        expression+='Math.floor(';
-    }
-    else{
-        if(expression==='0' || expression==="Error"){
-            expression=val;
-        }
-        else{
-            expression+=val;
-        }
-    }
-    console.log(expression)
-    display();
-}
-display();
-function evaluate(expr){
-    try{
-      let temp=expr
-    
-      
-     
-      
-      .replace(/sin\(/g,'Math.sin(')
-      .replace(/cos\(/g,'Math.cos(')
-      .replace(/tan\(/g,'Math.tan(')
-      .replace(/log\(/g,'Math.log10(')
-      .replace(/ln\(/g,'Math.log(')
-      .replace(/√\(/g,'Math.sqrt(');
-      
-      
-      return eval(temp);
-    }
-    catch(error){
-        return "Error";
-    }
-}
-document.addEventListener('keydown', function(event) {
-  const key = event.key;
-  
-  if (/[0-9]/.test(key)) {
-     btnhandler(key);
-  } else if (key === '+' || key === '-' || key === '.' || key === '(' || key === ')') {
-    btnhandler(key);
-  } else if (key === '*') {
-    btnhandler('×');
-  } else if (key === '/') {
-    btnhandler('÷');
-  } else if (key === 'Enter' || key === '=') {
-    btnhandler('=');
-  } else if (key === 'Backspace') {
-    btnhandler('⌫');
-  } else if (key === 'Escape') {
-    btnhandler('C');
-  } else if (key === '^') {
-    btnhandler('xʸ');
   }
-  
+
+  display();
+}
+
+function evaluateExpression(expr) {
+  expr = expr.replace(/\^/g, "**");
+  try {
+    return eval(expr);
+  } catch (error) {
+    throw new Error("Invalid expression");
+  }
+}
+
+function insertValue(value) {
+  if (expression === "0" || expression === Error) {
+    expression = String(value);
+  } else {
+    if (/[\d\)]$/.test(expression)) {
+      expression += "*" + value;
+    } else {
+      expression += value;
+    }
+  }
+}
+
+document.querySelector(".unit").addEventListener("click", function () {
+  isRadian = !isRadian;
+  this.textContent = isRadian ? "RAD" : "DEG";
 });
+
+document.addEventListener("keydown", function (event) {
+  const key = event.key;
+
+  if (/[0-9]/.test(key)) {
+    btnhandler(key);
+  } else if (
+    key === "+" ||
+    key === "-" ||
+    key === "." ||
+    key === "(" ||
+    key === ")"
+  ) {
+    btnhandler(key);
+  } else if (key === "*") {
+    btnhandler("*");
+  } else if (key === "/") {
+    btnhandler("divide");
+  } else if (key === "%") {
+    btnhandler("mod");
+  } else if (key === "Enter" || key === "=") {
+    btnhandler("=");
+  } else if (key === "Backspace") {
+    btnhandler("backspace");
+  } else if (key === "Escape") {
+    btnhandler("c");
+  } else if (key === "^") {
+    btnhandler("xy");
+  }
+});
+
+document.querySelectorAll("#trigno-myDropdown a").forEach((item) => {
+  item.addEventListener("click", function (e) {
+    e.preventDefault();
+    btnhandler(this.getAttribute("value"));
+  });
+});
+
+document.querySelectorAll("#func-myDropdown a").forEach((item) => {
+  item.addEventListener("click", function (e) {
+    e.preventDefault();
+    btnhandler(this.getAttribute("value"));
+  });
+});
+
+display();
