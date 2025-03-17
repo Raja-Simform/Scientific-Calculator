@@ -93,7 +93,7 @@ class ScientificCalculator {
 
     if ((key >= "0" && key <= "9") || keylist.has(key)) {
       if (key === "Enter" || key === "=") {
-        this.equals();
+        this.equalTo();
       } else {
         if (this.evalstr === this.ERROR) return;
         this.evalstr += key;
@@ -114,7 +114,7 @@ class ScientificCalculator {
 
     switch (currentKey) {
       case "=":
-        this.equals();
+        this.equalTo();
         break;
       case "backspace":
         this.backspace();
@@ -214,34 +214,7 @@ class ScientificCalculator {
     this.renderDisplay();
   }
 
-
-  // equals() {
-  //   try {
-  //     if ( this.evalstr=== this.ERROR) {
-  //       return;
-  //     }
-  //     if (this.evalstr === "") return;
-
-  //     const expressionToShow = this.resultstr; 
-
-  //     let result = eval(this.evalstr);
-  //     result = parseFloat(result.toFixed(3));
-
-    
-  //     this.addToHistory(expressionToShow, result);
-
-  //     this.evalstr = result.toString();
-  //     this.resultstr = this.evalstr;
-  //   } catch (error) {
-  //     this.evalstr = this.ERROR;
-  //     this.resultstr = this.ERROR;
-  //   }
-  //   this.renderDisplay();
-  // }
-
-
-
-  equals() {
+  equalTo() {
     if (this.evalstr === this.ERROR || this.evalstr === "") {
       return;
     }
@@ -342,38 +315,84 @@ class ScientificCalculator {
   }
 
 
-  factorial(n) {
-    if (n === 0 || n === 1) return 1;
-    let result = 1;
-    for (let i = 2; i <= n; i++) {
-      result *= i;
-    }
-    return result;
-  }
+  // factorial(n) {
+  //   if (n === 0 || n === 1) return 1;
+  //   let result = 1;
+  //   for (let i = 2; i <= n; i++) {
+  //     result *= i;
+  //   }
+  //   return result;
+  // }
 
-  factorialHandler() {
-    if (this.evalstr=== "" || isNaN(this.evalstr[this.evalstr.length - 1]))
-      return;
+  // factorialHandler() {
+  //   if (this.evalstr=== "" || isNaN(this.evalstr[this.evalstr.length - 1]))
+  //     return;
 
-    let num = "";
-    let i = this.inputStr.length - 1;
+  //   let num = "";
+  //   let i = this.inputStr.length - 1;
 
 
-    while (i >= 0 && !isNaN(this.evalstr[i])) {
-      num = this.evalstr[i] + num;
-      i--;
-    }
+  //   while (i >= 0 && !isNaN(this.evalstr[i])) {
+  //     num = this.evalstr[i] + num;
+  //     i--;
+  //   }
 
-    if (num !== "") {
-      let factValue = this.factorial(Number(num));
+  //   if (num !== "") {
+  //     let factValue = this.factorial(Number(num));
 
     
-      this.evalstr= this.evalstr.slice(0, i + 1) + factValue;
-      this.resultstr += "!";
-    }
+  //     this.evalstr= this.evalstr.slice(0, i + 1) + factValue;
+  //     this.resultstr += "!";
+  //   }
 
-    this.renderDisplay();
+  //   this.renderDisplay();
+  // }
+
+  factorial(n) {
+    try {
+      if (n === 0 || n === 1) {
+        return 1;
+      }
+      
+      let result = 1;
+      for (let i = 2; i <= n; i++) {
+        result *= i;
+      }
+      
+      return result;
+    } catch (error) {
+      return this.ERROR;
+    }
   }
+   
+  factorialHandler() {
+    try {
+      if (this.evalstr === "" || isNaN(this.evalstr[this.evalstr.length - 1])) {
+        return;
+      }
+      
+      let num = "";
+      let i = this.evalstr.length - 1;
+      
+      while (i >= 0 && !isNaN(this.evalstr[i])) {
+        num = this.evalstr[i] + num;
+        i--;
+      }
+      if (num !== "") {
+        let factValue = this.factorial(Number(num));
+        this.evalstr = this.evalstr.slice(0, i + 1) + factValue;
+        this.resultstr += "!";
+      }
+    } catch (error) {
+      this.evalstr = this.ERROR;
+      this.resultstr = this.ERROR;
+    } finally {
+      this.renderDisplay();
+    }
+  }
+  
+
+
 
   signChange() {
     if (this.evalstr=== "") this.evalstr= "0";
@@ -444,7 +463,6 @@ class ScientificCalculator {
     const hasMemory = this.memory !== null;
     const mcButton = document.querySelector('[value="MC"]');
     const mrButton = document.querySelector('[value="MR"]');
-
     if (mcButton) mcButton.classList.toggle("shadow-color", !hasMemory);
     if (mrButton) mrButton.classList.toggle("shadow-color", !hasMemory);
   }
