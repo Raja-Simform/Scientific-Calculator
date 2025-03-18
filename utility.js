@@ -215,29 +215,6 @@ class ScientificCalculator {
   }
 
 
-  // equals() {
-  //   try {
-  //     if ( this.evalstr=== this.ERROR) {
-  //       return;
-  //     }
-  //     if (this.evalstr === "") return;
-
-  //     const expressionToShow = this.resultstr; 
-
-  //     let result = eval(this.evalstr);
-  //     result = parseFloat(result.toFixed(3));
-
-    
-  //     this.addToHistory(expressionToShow, result);
-
-  //     this.evalstr = result.toString();
-  //     this.resultstr = this.evalstr;
-  //   } catch (error) {
-  //     this.evalstr = this.ERROR;
-  //     this.resultstr = this.ERROR;
-  //   }
-  //   this.renderDisplay();
-  // }
 
 
 
@@ -343,36 +320,46 @@ class ScientificCalculator {
 
 
   factorial(n) {
-    if (n === 0 || n === 1) return 1;
-    let result = 1;
-    for (let i = 2; i <= n; i++) {
-      result *= i;
+    try {
+      if (n === 0 || n === 1) {
+        return 1;
+      }
+      
+      let result = 1;
+      for (let i = 2; i <= n; i++) {
+        result *= i;
+      }
+      
+      return result;
+    } catch (error) {
+      return this.ERROR;
     }
-    return result;
   }
-
+   
   factorialHandler() {
-    if (this.evalstr=== "" || isNaN(this.evalstr[this.evalstr.length - 1]))
-      return;
-
-    let num = "";
-    let i = this.inputStr.length - 1;
-
-
-    while (i >= 0 && !isNaN(this.evalstr[i])) {
-      num = this.evalstr[i] + num;
-      i--;
+    try {
+      if (this.evalstr === "" || isNaN(this.evalstr[this.evalstr.length - 1])) {
+        return;
+      }
+      
+      let num = "";
+      let i = this.evalstr.length - 1;
+      
+      while (i >= 0 && !isNaN(this.evalstr[i])) {
+        num = this.evalstr[i] + num;
+        i--;
+      }
+      if (num !== "") {
+        let factValue = this.factorial(Number(num));
+        this.evalstr = this.evalstr.slice(0, i + 1) + factValue;
+        this.resultstr += "!";
+      }
+    } catch (error) {
+      this.evalstr = this.ERROR;
+      this.resultstr = this.ERROR;
+    } finally {
+      this.renderDisplay();
     }
-
-    if (num !== "") {
-      let factValue = this.factorial(Number(num));
-
-    
-      this.evalstr= this.evalstr.slice(0, i + 1) + factValue;
-      this.resultstr += "!";
-    }
-
-    this.renderDisplay();
   }
 
   signChange() {
@@ -411,7 +398,7 @@ class ScientificCalculator {
       .secondbtn
       ? "x³"
       : "x²";
-    document.querySelector("[value='√']").textContent = this.secondbtn
+    document.querySelector("[value='squareroot']").textContent = this.secondbtn
       ? "∛x"
       : "√x";
   }
@@ -428,15 +415,15 @@ class ScientificCalculator {
 
   
   getMemory() {
-    const savedMemory = localStorage.getItem("calculatorMemory");
+    const savedMemory = localStorage.getItem("memoryKey");
     this.memory = savedMemory ? parseFloat(savedMemory) : null;
   }
 
   setMemory() {
     if (this.memory !== null) {
-      localStorage.setItem("calculatorMemory", this.memory.toString());
+      localStorage.setItem("memoryKey", this.memory.toString());
     } else {
-      localStorage.removeItem("calculatorMemory");
+      localStorage.removeItem("memoryKey");
     }
   }
 
@@ -498,12 +485,12 @@ class ScientificCalculator {
     this.renderDisplay();
   }
   getHistory() {
-    const savedHistory = localStorage.getItem("calculatorHistory");
+    const savedHistory = localStorage.getItem("historyKey");
     this.calc_history = savedHistory ? JSON.parse(savedHistory) : [];
   }
   saveHistoryToStorage() {
     localStorage.setItem(
-      "calculatorHistory",
+      "historyKey",
       JSON.stringify(this.calc_history)
     );
   }
