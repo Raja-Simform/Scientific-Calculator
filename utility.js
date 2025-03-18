@@ -1,4 +1,4 @@
-import  history  from "./historyClass.js";
+import history from "./historyClass.js";
 class ScientificCalculator {
   constructor() {
     this.ERROR = "Error";
@@ -13,8 +13,8 @@ class ScientificCalculator {
     this.renderDisplay();
     this.updateMemoryButtons();
 
-    this.History=new history(this);
-     console.log("hello");
+    this.History = new history(this);
+    console.log("hello");
 
     this.clickHandler = this.clickHandler.bind(this);
     this.backspaceHandler = this.backspaceHandler.bind(this);
@@ -52,27 +52,28 @@ class ScientificCalculator {
       .querySelector(".toggle-btn")
       .addEventListener("click", this.degbtnHandler);
 
-   
     const historyBtn = document.querySelector(".history-toggle-btn");
     if (historyBtn) {
-      historyBtn.addEventListener("click", () => this.History.toggleHistoryDisplay());
+      historyBtn.addEventListener("click", () =>
+        this.History.toggleHistoryDisplay()
+      );
     }
 
     const clearHistoryBtn = document.querySelector(".clear-history-btn");
     if (clearHistoryBtn) {
-      clearHistoryBtn.addEventListener("click", () => this.History.clearHistory());
+      clearHistoryBtn.addEventListener("click", () =>
+        this.History.clearHistory()
+      );
     }
   }
 
-  
   renderDisplay() {
     this.display.textContent = this.resultstr || "0";
   }
 
-
   backspaceHandler(e) {
     if (e.key === "Backspace") {
-     this.backspace();
+      this.backspace();
     }
   }
 
@@ -104,7 +105,7 @@ class ScientificCalculator {
   }
 
   clickHandler(e) {
-    let targetbtn= e.target.closest("button");
+    let targetbtn = e.target.closest("button");
     let currentKey = targetbtn?.value;
 
     if (!currentKey) {
@@ -123,22 +124,22 @@ class ScientificCalculator {
         this.changeMode();
         break;
       case "sin":
-        this.evalstr+= this.deg ? "Math.sin((Math.PI/180)*" : "Math.sin(";
+        this.evalstr += this.deg ? "Math.sin((Math.PI/180)*" : "Math.sin(";
         this.resultstr += "sin(";
         this.renderDisplay();
         break;
       case "cos":
-        this.evalstr+= this.deg ? "Math.cos((Math.PI/180)*" : "Math.cos(";
+        this.evalstr += this.deg ? "Math.cos((Math.PI/180)*" : "Math.cos(";
         this.resultstr += "cos(";
         this.renderDisplay();
         break;
       case "tan":
-        this.evalstr+= this.deg ? "Math.tan((Math.PI/180)*" : "Math.tan(";
+        this.evalstr += this.deg ? "Math.tan((Math.PI/180)*" : "Math.tan(";
         this.resultstr += "tan(";
         this.renderDisplay();
         break;
       case "C":
-        this.evalstr= "";
+        this.evalstr = "";
         this.resultstr = "";
         this.renderDisplay();
         break;
@@ -146,27 +147,27 @@ class ScientificCalculator {
         this.exponent();
         break;
       case "floor":
-        this.evalstr+= "Math.floor(";
+        this.evalstr += "Math.floor(";
         this.resultstr += "floor(";
         this.renderDisplay();
         break;
       case "ceil":
-        this.evalstr+= "Math.ceil(";
+        this.evalstr += "Math.ceil(";
         this.resultstr += "ceil(";
         this.renderDisplay();
         break;
       case "log":
-        this.evalstr+= "Math.log(";
+        this.evalstr += "Math.log(";
         this.resultstr += "log(";
         this.renderDisplay();
         break;
       case "ln":
-        this.evalstr+= "Math.log10(";
+        this.evalstr += "Math.log10(";
         this.resultstr += "ln(";
         this.renderDisplay();
         break;
       case "abs":
-        this.evalstr+= "Math.abs(";
+        this.evalstr += "Math.abs(";
         this.resultstr += "abs(";
         this.renderDisplay();
         break;
@@ -175,7 +176,7 @@ class ScientificCalculator {
         break;
       case "squareroot":
         if (this.secondbtn) {
-          this.evalstr+= "Math.cbrt(";
+          this.evalstr += "Math.cbrt(";
           this.resultstr += "∛(";
         } else {
           this.evalstr += "Math.sqrt(";
@@ -214,10 +215,6 @@ class ScientificCalculator {
     this.renderDisplay();
   }
 
-
-
-
-
   equals() {
     if (this.evalstr === this.ERROR || this.evalstr === "") {
       return;
@@ -230,7 +227,6 @@ class ScientificCalculator {
       this.evalstr = result.toString();
       this.resultstr = this.evalstr;
     } catch (error) {
-     
       this.evalstr = this.ERROR;
       this.resultstr = this.ERROR;
     } finally {
@@ -238,12 +234,11 @@ class ScientificCalculator {
     }
   }
 
-
   backspace() {
-    if(!this.evalstr){
-        return;
+    if (!this.evalstr) {
+      return;
     }
-    if(this.evalstr===this.ERROR ){
+    if (this.evalstr === this.ERROR) {
       this.clearCalc();
       return;
     }
@@ -260,18 +255,16 @@ class ScientificCalculator {
     this.renderDisplay();
   }
   square() {
-  
-    this.evalstr= this.evalstr.replace(/\*\*3$|\*\*2$/, "");
+    this.evalstr = this.evalstr.replace(/\*\*3$|\*\*2$/, "");
     this.resultstr = this.resultstr.replace(/[²³]$/, "");
 
     if (this.evalstr === "" || /[*+\-/^]$/.test(this.evalstr)) return;
 
-   
     if (this.secondbtn) {
-      this.evalstr+= "**3";
+      this.evalstr += "**3";
       this.resultstr += "³";
     } else {
-      this.evalstr+= "**2";
+      this.evalstr += "**2";
       this.resultstr += "²";
     }
 
@@ -279,11 +272,11 @@ class ScientificCalculator {
   }
 
   tenx() {
-    if (this.evalstr=== "" || /[\+\-\*\/\(]$/.test(this.evalstr)) {
-      this.evalstr+= "10**";
+    if (this.evalstr === "" || /[\+\-\*\/\(]$/.test(this.evalstr)) {
+      this.evalstr += "10**";
       this.resultstr += "10^";
     } else {
-      this.evalstr+= "*10**";
+      this.evalstr += "*10**";
       this.resultstr += "*10^";
     }
     this.renderDisplay();
@@ -291,60 +284,59 @@ class ScientificCalculator {
 
   xy() {
     if (!this.evalstr.endsWith("**")) {
-      this.evalstr+= "**";
+      this.evalstr += "**";
       this.resultstr += "^";
       this.renderDisplay();
     }
   }
   pi() {
-    if (this.evalstr&& !isNaN(this.evalstr[this.evalstr.length - 1])) {
-      this.evalstr+= "*Math.PI";
+    if (this.evalstr && !isNaN(this.evalstr[this.evalstr.length - 1])) {
+      this.evalstr += "*Math.PI";
       this.resultstr += "*π";
     } else {
-      this.evalstr+= "Math.PI";
+      this.evalstr += "Math.PI";
       this.resultstr += "π";
     }
     this.renderDisplay();
   }
 
   exponent() {
-    if (this.evalstr&& !isNaN(this.evalstr[this.evalstr.length - 1])) {
-      this.evalstr+= "*Math.E";
+    if (this.evalstr && !isNaN(this.evalstr[this.evalstr.length - 1])) {
+      this.evalstr += "*Math.E";
       this.resultstr += "*e";
     } else {
-      this.evalstr+= "Math.E";
+      this.evalstr += "Math.E";
       this.resultstr += "e";
     }
     this.renderDisplay();
   }
-
 
   factorial(n) {
     try {
       if (n === 0 || n === 1) {
         return 1;
       }
-      
+
       let result = 1;
       for (let i = 2; i <= n; i++) {
         result *= i;
       }
-      
+
       return result;
     } catch (error) {
       return this.ERROR;
     }
   }
-   
+
   factorialHandler() {
     try {
       if (this.evalstr === "" || isNaN(this.evalstr[this.evalstr.length - 1])) {
         return;
       }
-      
+
       let num = "";
       let i = this.evalstr.length - 1;
-      
+
       while (i >= 0 && !isNaN(this.evalstr[i])) {
         num = this.evalstr[i] + num;
         i--;
@@ -363,23 +355,23 @@ class ScientificCalculator {
   }
 
   signChange() {
-    if (this.evalstr=== "") this.evalstr= "0";
-    if (typeof this.evalstr!== "string")
-      this.evalstr= this.evalstr.toString();
+    if (this.evalstr === "") this.evalstr = "0";
+    if (typeof this.evalstr !== "string")
+      this.evalstr = this.evalstr.toString();
 
     let match = this.evalstr.match(/(-?\d+(\.\d+)?)$/);
     if (match) {
       let num = Number(match[1]);
       let toggled = num * -1;
-      this.evalstr= this.evalstr.replace(/(-?\d+(\.\d+)?)$/, `${toggled}`);
+      this.evalstr = this.evalstr.replace(/(-?\d+(\.\d+)?)$/, `${toggled}`);
       this.resultstr = this.evalstr;
     }
     this.renderDisplay();
   }
 
   inverse() {
-    if (typeof this.evalstr!== "string")
-      this.evalstr= this.evalstr.toString();
+    if (typeof this.evalstr !== "string")
+      this.evalstr = this.evalstr.toString();
     let match = this.evalstr.match(/(\d+(\.\d+)?)$/);
     if (match) {
       let num = Number(match[1]);
@@ -390,12 +382,10 @@ class ScientificCalculator {
     this.renderDisplay();
   }
 
- 
   changeMode() {
     this.secondbtn = !this.secondbtn;
 
-    document.querySelector("[value='square']").textContent = this
-      .secondbtn
+    document.querySelector("[value='square']").textContent = this.secondbtn
       ? "x³"
       : "x²";
     document.querySelector("[value='squareroot']").textContent = this.secondbtn
@@ -407,13 +397,11 @@ class ScientificCalculator {
     this.deg = !this.deg;
     document.querySelector(".unit").textContent = this.deg ? "DEG" : "RAD";
 
-    
-    if (this.evalstr&& !isNaN(Number(this.evalstr))) {
+    if (this.evalstr && !isNaN(Number(this.evalstr))) {
       this.renderDisplay();
     }
   }
 
-  
   getMemory() {
     const savedMemory = localStorage.getItem("memoryKey");
     this.memory = savedMemory ? parseFloat(savedMemory) : null;
@@ -444,7 +432,7 @@ class ScientificCalculator {
     let currentValue = 0;
 
     try {
-      if (this.evalstr&& this.evalstr!== this.ERROR) {
+      if (this.evalstr && this.evalstr !== this.ERROR) {
         currentValue = parseFloat(eval(this.evalstr));
       }
     } catch (error) {
@@ -453,10 +441,10 @@ class ScientificCalculator {
     }
 
     switch (action) {
-      case "MC": 
+      case "MC":
         this.memory = null;
         break;
-      case "MR": 
+      case "MR":
         if (this.memory !== null) {
           this.evalstr = this.memory.toString();
           this.resultstr = this.evalstr;
@@ -469,7 +457,7 @@ class ScientificCalculator {
           this.memory += currentValue;
         }
         break;
-      case "M-": 
+      case "M-":
         if (this.memory === null) {
           this.memory = -currentValue;
         } else {
@@ -485,9 +473,8 @@ class ScientificCalculator {
     this.renderDisplay();
   }
 
-
   expi() {
-    if (!this.evalstr|| isNaN(Number(this.evalstr))) return;
+    if (!this.evalstr || isNaN(Number(this.evalstr))) return;
     let num = Number(this.evalstr);
     this.exp = !this.exp;
     if (this.exp) {
@@ -506,10 +493,10 @@ class ScientificCalculator {
     let currentKey = e.target.closest("button")?.value;
     switch (currentKey) {
       case "degree":
-        this.degree(); 
+        this.degree();
         break;
       case "F-E":
-        this.expi(); 
+        this.expi();
         break;
       default:
         break;
