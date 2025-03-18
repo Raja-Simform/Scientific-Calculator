@@ -1,0 +1,67 @@
+import { show } from "./display.js";
+import {
+  POWER,
+  SQRT,
+  SQRT_VAL,
+  SQUARE_VAL,
+  CBRT_VAL,
+  CUBE_VAL,
+  DEG_VAL,
+  RAD_VAL,
+} from "./constants.js";
+export function changeMode(calculator) {
+  calculator.secondbtn = !calculator.secondbtn;
+
+  document.querySelector(POWER).textContent = calculator.secondbtn
+    ? CUBE_VAL
+    : SQUARE_VAL;
+  document.querySelector(SQRT).textContent = calculator.secondbtn
+    ? CBRT_VAL
+    : SQRT_VAL;
+}
+
+export function degree(calculator) {
+  calculator.deg = !calculator.deg;
+  document.querySelector(".unit").textContent = calculator.deg
+    ? DEG_VAL
+    : RAD_VAL;
+
+  if (calculator.expression && !isNaN(Number(calculator.expression))) {
+    show(calculator);
+  }
+}
+
+export function degreeClickEventHandler(calculator, e) {
+  let currentKey = e.target.closest("button")?.value;
+  switch (currentKey) {
+    case "degree":
+      degree(calculator);
+      break;
+    case "F-E":
+      toggleExponential(calculator);
+      break;
+    default:
+      break;
+  }
+}
+
+export function toggleExponential(calculator) {
+  if (!calculator.expression || isNaN(Number(calculator.expression))) return;
+
+  let num = Number(calculator.expression);
+  calculator.isExponential = !calculator.isExponential;
+
+  if (calculator.isExponential) {
+    let exponentStr = num.toExponential(2);
+    let [mantissa, exponent] = exponentStr.split("e");
+
+    calculator.expression = num.toString();
+
+    calculator.displayVal = `${mantissa}×10^${Number(exponent)}`;
+  } else {
+    calculator.expression = num.toString();
+    calculator.displayVal = calculator.expression;
+  }
+
+  show(calculator);
+}
