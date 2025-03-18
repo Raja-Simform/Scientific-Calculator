@@ -1,28 +1,37 @@
-  function getHistory() {
-    const savedHistory = localStorage.getItem("calculatorHistory");
+class history {
+  constructor(calci) {
+    this.calc_history = [];
+    this.COUNT = 5;
+    this.calci = calci;
+
+    this.getHistory = this.getHistory.bind(this);
+    this.saveHistoryToStorage = this.saveHistoryToStorage.bind(this);
+    this.addToHistory = this.addToHistory.bind(this);
+    this.clearHistory = this.clearHistory.bind(this);
+    this.toggleHistoryDisplay = this.toggleHistoryDisplay.bind(this);
+    this.createHistoryPanel = this.createHistoryPanel.bind(this);
+    this.renderHistoryPanel = this.renderHistoryPanel.bind(this);
+  }
+
+  getHistory() {
+    const savedHistory = localStorage.getItem("historyKey");
     this.calc_history = savedHistory ? JSON.parse(savedHistory) : [];
   }
-  function saveHistoryToStorage() {
-    localStorage.setItem(
-      "calculatorHistory",
-      JSON.stringify(this.calc_history)
-    );
+  saveHistoryToStorage() {
+    localStorage.setItem("historyKey", JSON.stringify(this.calc_history));
   }
-  function addToHistory(expression, result) {
+  addToHistory(expression, result) {
     this.calc_history.unshift({
       expression,
       result: result.toString(),
     });
     if (this.calc_history.length > this.COUNT) {
-      this.calc_history = this.calc_history.slice(
-        0,
-        this.COUNT
-      );
+      this.calc_history = this.calc_history.slice(0, this.COUNT);
     }
     this.saveHistoryToStorage();
   }
 
-  function clearHistory(){
+  clearHistory() {
     this.calc_history = [];
     this.saveHistoryToStorage();
     const historyPanel = document.querySelector(".history-panel");
@@ -41,8 +50,8 @@
       }
     }
   }
-  createHistoryPanel(){
-    let panel = document.createElement("div");
+  createHistoryPanel() {
+    const panel = document.createElement("div");
     panel.className = "history-panel";
     document.querySelector(".calculator").appendChild(panel);
     this.renderHistoryPanel();
@@ -62,12 +71,14 @@
       listItem.className = "history-item";
       listItem.textContent = `${item.expression} = ${item.result}`;
       listItem.addEventListener("click", () => {
-        this.evalstr= item.result;
-        this.resultstr = item.result;
-        this.updateDisplay();
-    
+        this.calci.evalstr = item.result;
+        this.calci.resultstr = item.result;
+        this.calci.renderDisplay();
+
         panel.style.display = "none";
       });
       historyList.appendChild(listItem);
     });
   }
+}
+export default history;

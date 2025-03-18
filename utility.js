@@ -1,3 +1,4 @@
+import  history  from "./historyClass.js";
 class ScientificCalculator {
   constructor() {
     this.ERROR = "Error";
@@ -7,15 +8,14 @@ class ScientificCalculator {
     this.deg = true;
     this.exp = false;
     this.memory = null;
-    this.calc_history = [];
     this.COUNT = 5;
     this.display = document.querySelector(".result");
-    this.getMemory();
-    this.getHistory();
     this.renderDisplay();
     this.updateMemoryButtons();
 
-  
+    this.History=new history(this);
+     console.log("hello");
+
     this.clickHandler = this.clickHandler.bind(this);
     this.backspaceHandler = this.backspaceHandler.bind(this);
     this.keyHandler = this.keyHandler.bind(this);
@@ -55,12 +55,12 @@ class ScientificCalculator {
    
     const historyBtn = document.querySelector(".history-toggle-btn");
     if (historyBtn) {
-      historyBtn.addEventListener("click", () => this.toggleHistoryDisplay());
+      historyBtn.addEventListener("click", () => this.History.toggleHistoryDisplay());
     }
 
     const clearHistoryBtn = document.querySelector(".clear-history-btn");
     if (clearHistoryBtn) {
-      clearHistoryBtn.addEventListener("click", () => this.clearHistory());
+      clearHistoryBtn.addEventListener("click", () => this.History.clearHistory());
     }
   }
 
@@ -226,7 +226,7 @@ class ScientificCalculator {
       const expressionToShow = this.resultstr;
       let result = eval(this.evalstr);
       result = Number(result.toFixed(3));
-      this.addToHistory(expressionToShow, result);
+      this.History.addToHistory(expressionToShow, result);
       this.evalstr = result.toString();
       this.resultstr = this.evalstr;
     } catch (error) {
@@ -484,79 +484,7 @@ class ScientificCalculator {
     this.updateMemoryButtons();
     this.renderDisplay();
   }
-  getHistory() {
-    const savedHistory = localStorage.getItem("historyKey");
-    this.calc_history = savedHistory ? JSON.parse(savedHistory) : [];
-  }
-  saveHistoryToStorage() {
-    localStorage.setItem(
-      "historyKey",
-      JSON.stringify(this.calc_history)
-    );
-  }
-  addToHistory(expression, result) {
-    this.calc_history.unshift({
-      expression,
-      result: result.toString(),
-    });
-    if (this.calc_history.length > this.COUNT) {
-      this.calc_history = this.calc_history.slice(
-        0,
-        this.COUNT
-      );
-    }
-    this.saveHistoryToStorage();
-  }
 
-  clearHistory() {
-    this.calc_history = [];
-    this.saveHistoryToStorage();
-    const historyPanel = document.querySelector(".history-panel");
-    if (historyPanel && historyPanel.style.display !== "none") {
-      this.renderHistoryPanel();
-    }
-  }
-  toggleHistoryDisplay() {
-    const historyPanel = document.querySelector(".history-panel");
-    if (historyPanel) {
-      if (historyPanel.style.display === "none") {
-        historyPanel.style.display = "block";
-        this.renderHistoryPanel();
-      } else {
-        historyPanel.style.display = "none";
-      }
-    }
-  }
-  createHistoryPanel() {
-    let panel = document.createElement("div");
-    panel.className = "history-panel";
-    document.querySelector(".calculator").appendChild(panel);
-    this.renderHistoryPanel();
-  }
-
-  renderHistoryPanel() {
-    const panel = document.querySelector(".history-panel");
-    if (!panel) return;
-    const historyList = panel.querySelector(".history-list");
-    historyList.innerHTML = "";
-    if (this.calc_history.length === 0) {
-      historyList.innerHTML = '<p class="no-history">No calculations yet</p>';
-      return;
-    }
-    this.calc_history.forEach((item) => {
-      const listItem = document.createElement("div");
-      listItem.className = "history-item";
-      listItem.textContent = `${item.expression} = ${item.result}`;
-      listItem.addEventListener("click", () => {
-        this.evalstr= item.result;
-        this.resultstr = item.result;
-        this.renderDisplay();
-    
-        panel.style.display = "none";
-      });
-      historyList.appendChild(listItem);
-    });
-  }
 
   expi() {
     if (!this.evalstr|| isNaN(Number(this.evalstr))) return;
