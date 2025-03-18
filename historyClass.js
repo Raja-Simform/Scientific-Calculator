@@ -11,6 +11,16 @@ class history {
     this.toggleHistoryDisplay = this.toggleHistoryDisplay.bind(this);
     this.createHistoryPanel = this.createHistoryPanel.bind(this);
     this.renderHistoryPanel = this.renderHistoryPanel.bind(this);
+
+    document.addEventListener("click", (event) => {
+      const calculatorContainer = document.querySelector(".calculator");
+      const historyPanel = document.querySelector(".history-panel");
+      if (historyPanel && historyPanel.style.display === "block") {
+        if (!calculatorContainer.contains(event.target)) {
+          historyPanel.style.display = "none";
+        }
+      }
+    });
   }
 
   getHistory() {

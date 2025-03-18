@@ -235,6 +235,7 @@ class ScientificCalculator {
   }
 
   backspace() {
+    console.log("hello");
     if (!this.evalstr) {
       return;
     }
@@ -243,7 +244,7 @@ class ScientificCalculator {
       return;
     }
     if (this.evalstr.endsWith("**")) {
-      this.evalstr = thisevalstr.slice(0, -2);
+      this.evalstr = this.evalstr.slice(0, -2);
       this.resultstr = this.resultstr.slice(0, -1);
     } else if (this.evalstr.endsWith("**2") || this.evalstr.endsWith("**3")) {
       this.evalstr = this.evalstr.slice(0, -3);
