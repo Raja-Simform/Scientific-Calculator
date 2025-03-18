@@ -31,7 +31,7 @@ export function degree(calculator) {
   }
 }
 
-export function toggleExponential(calculator) {
+export function convetExp(calculator) {
   if (!calculator.expression || isNaN(Number(calculator.expression))) return;
 
   let num = Number(calculator.expression);
@@ -59,7 +59,7 @@ export function degTorad(calculator, e) {
       degree(calculator);
       break;
     case "F-E":
-      toggleExponential(calculator);
+      convetExp(calculator);
       break;
     default:
       break;

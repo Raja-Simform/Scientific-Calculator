@@ -26,10 +26,10 @@ export class ScientificCalculator {
     let match = this.expression.match(/(-?\d+(\.\d+)?)$/);
     if (match) {
       let num = Number(match[1]);
-      let toggled = num * -1;
+      let change = num * -1;
       this.expression = this.expression.replace(
         /(-?\d+(\.\d+)?)$/,
-        `${toggled}`
+        `${change}`
       );
       this.displayVal = this.expression;
     }
@@ -39,11 +39,11 @@ export class ScientificCalculator {
   inversefunc() {
     if (typeof this.expression !== "string")
       this.expression = this.expression.toString();
-    let match = this.expression.match(/(\d+(\.\d+)?)$/);
+      let match = this.expression.match(/(\d+(\.\d+)?)$/);
     if (match) {
       let num = Number(match[1]);
-      let inverse = `1/(${num})`;
-      this.expression = this.expression.replace(/(\d+(\.\d+)?)$/, inverse);
+      let value = `1/(${num})`;
+      this.expression = this.expression.replace(/(\d+(\.\d+)?)$/, value);
       this.displayVal = this.expression;
     }
     show(this);

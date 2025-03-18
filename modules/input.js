@@ -11,7 +11,7 @@ import {
   exponent,
 } from "./mathOperations.js";
 
-import { degTorad, changeMode, toggleExponential } from "./ui.js";
+import { degTorad, changeMode, convetExp } from "./ui.js";
 
 export function initInputHandlers(calculator) {
   const boundKeyClick = (e) => {
@@ -148,7 +148,7 @@ export function keyClickEventHandler(calculator, e) {
       pi(calculator);
       break;
     case "exponential":
-      toggleExponential(calculator);
+      convetExp(calculator);
       break;
     default:
       calculator.expression += tempval;

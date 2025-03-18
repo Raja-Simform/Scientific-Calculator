@@ -1,7 +1,7 @@
 export const ERROR = "Error";
 export const ERROR_INPUT = "Error";
 export const POWER = "[value='square']";
-export const SQRT = "[value='√']";
+export const SQRT = "[value='squareroot']";
 export const SQUARE_VAL = "x²";
 export const CUBE_VAL = "x³";
 export const SQRT_VAL = "√x";
