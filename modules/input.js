@@ -11,14 +11,9 @@ import {
   exponent,
 } from "./mathOperations.js";
 
-import {
-  degreeClickEventHandler,
-  changeMode,
-  toggleExponential,
-} from "./ui.js";
+import { degTorad, changeMode, toggleExponential } from "./ui.js";
 
 export function initInputHandlers(calculator) {
-
   const boundKeyClick = (e) => {
     keyClickEventHandler(calculator, e);
   };
@@ -31,7 +26,7 @@ export function initInputHandlers(calculator) {
   };
 
   const boundDegreeClick = (e) => {
-    degreeClickEventHandler(calculator, e);
+    degTorad(calculator, e);
   };
 
   document.querySelector(".keypad").addEventListener("click", (e) => {

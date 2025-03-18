@@ -1,5 +1,5 @@
-import { ScientificCalculator } from './calculator.js';
+import { ScientificCalculator } from "./calculator.js";
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   const calculator = new ScientificCalculator();
 });

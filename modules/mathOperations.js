@@ -1,4 +1,11 @@
-import { ERROR, ERROR_INPUT,POWER_2,POWER_3,POWER_TO} from "./constants.js";
+import {
+  ERROR,
+  ERROR_INPUT,
+  POWER_2,
+  POWER_3,
+  POWER_TO,
+  POINT_VAL,
+} from "./constants.js";
 import { show } from "./display.js";
 
 export function equals(calculator) {
@@ -10,9 +17,9 @@ export function equals(calculator) {
       return;
     }
     if (calculator.expression === "") return;
-    
+
     let result = eval(calculator.expression);
-    result = parseFloat(result.toFixed(3));
+    result = parseFloat(result.toFixed(POINT_VAL));
 
     calculator.expression = result.toString();
     calculator.displayVal = calculator.expression;
@@ -49,8 +56,6 @@ export function backspace(calculator) {
   }
   show(calculator);
 }
-
-
 
 export function squareRoot(calculator) {
   if (calculator.secondbtn) {
@@ -102,8 +107,6 @@ export function XY(calculator) {
     show(calculator);
   }
 }
-
-
 
 export function pi(calculator) {
   if (

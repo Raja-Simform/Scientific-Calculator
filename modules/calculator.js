@@ -2,7 +2,6 @@ import { ERROR, ERROR_INPUT } from "./constants.js";
 import { show } from "./display.js";
 import { initInputHandlers } from "./input.js";
 export class ScientificCalculator {
-  
   constructor() {
     this.expression = "";
     this.displayVal = "";

@@ -31,7 +31,28 @@ export function degree(calculator) {
   }
 }
 
-export function degreeClickEventHandler(calculator, e) {
+export function toggleExponential(calculator) {
+  if (!calculator.expression || isNaN(Number(calculator.expression))) return;
+
+  let num = Number(calculator.expression);
+  calculator.isExponential = !calculator.isExponential;
+
+  if (calculator.isExponential) {
+    let valStr = num.toExponential(2);
+    let [value, ten] = valStr.split("e");
+
+    calculator.expression = num.toString();
+
+    calculator.displayVal = `${value}×10^${Number(ten)}`;
+  } else {
+    calculator.expression = num.toString();
+    calculator.displayVal = calculator.expression;
+  }
+
+  show(calculator);
+}
+
+export function degTorad(calculator, e) {
   let currentKey = e.target.closest("button")?.value;
   switch (currentKey) {
     case "degree":
@@ -43,25 +64,4 @@ export function degreeClickEventHandler(calculator, e) {
     default:
       break;
   }
-}
-
-export function toggleExponential(calculator) {
-  if (!calculator.expression || isNaN(Number(calculator.expression))) return;
-
-  let num = Number(calculator.expression);
-  calculator.isExponential = !calculator.isExponential;
-
-  if (calculator.isExponential) {
-    let exponentStr = num.toExponential(2);
-    let [mantissa, exponent] = exponentStr.split("e");
-
-    calculator.expression = num.toString();
-
-    calculator.displayVal = `${mantissa}×10^${Number(exponent)}`;
-  } else {
-    calculator.expression = num.toString();
-    calculator.displayVal = calculator.expression;
-  }
-
-  show(calculator);
 }
