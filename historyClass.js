@@ -3,7 +3,6 @@ class history {
     this.calc_history = [];
     this.COUNT = 5;
     this.calci = calci;
-
     this.getHistory = this.getHistory.bind(this);
     this.saveHistoryToStorage = this.saveHistoryToStorage.bind(this);
     this.addToHistory = this.addToHistory.bind(this);
@@ -21,6 +20,7 @@ class history {
         }
       }
     });
+    this.getHistory();
   }
 
   getHistory() {

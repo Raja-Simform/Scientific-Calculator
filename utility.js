@@ -1,4 +1,5 @@
 import history from "./historyClass.js";
+import memoryClass from "./memoryClass.js";
 class ScientificCalculator {
   constructor() {
     this.ERROR = "Error";
@@ -7,21 +8,15 @@ class ScientificCalculator {
     this.secondbtn = false;
     this.deg = true;
     this.exp = false;
-    this.memory = null;
     this.COUNT = 5;
     this.display = document.querySelector(".result");
     this.renderDisplay();
-    this.updateMemoryButtons();
-
     this.History = new history(this);
-    console.log("hello");
-
+    this.Memory = new memoryClass(this);
     this.clickHandler = this.clickHandler.bind(this);
     this.backspaceHandler = this.backspaceHandler.bind(this);
     this.keyHandler = this.keyHandler.bind(this);
-    this.memoryhandler = this.memoryhandler.bind(this);
     this.degbtnHandler = this.degbtnHandler.bind(this);
-
     this.initEventListeners();
   }
 
@@ -32,10 +27,8 @@ class ScientificCalculator {
         this.clickHandler(e);
       }
     });
-
     document.addEventListener("keydown", this.backspaceHandler);
     document.addEventListener("keypress", this.keyHandler);
-
     document
       .querySelector(".trigno-dropdown")
       .addEventListener("click", this.clickHandler);
@@ -43,11 +36,6 @@ class ScientificCalculator {
     document
       .querySelector(".func-dropdown")
       .addEventListener("click", this.clickHandler);
-
-    document
-      .querySelector(".memory-btn")
-      .addEventListener("click", this.memoryhandler);
-
     document
       .querySelector(".toggle-btn")
       .addEventListener("click", this.degbtnHandler);
@@ -109,7 +97,6 @@ class ScientificCalculator {
     let currentKey = targetbtn?.value;
 
     if (!currentKey) {
-      console.log("No button value found");
       return;
     }
 
@@ -401,77 +388,6 @@ class ScientificCalculator {
     if (this.evalstr && !isNaN(Number(this.evalstr))) {
       this.renderDisplay();
     }
-  }
-
-  getMemory() {
-    const savedMemory = localStorage.getItem("memoryKey");
-    this.memory = savedMemory ? parseFloat(savedMemory) : null;
-  }
-
-  setMemory() {
-    if (this.memory !== null) {
-      localStorage.setItem("memoryKey", this.memory.toString());
-    } else {
-      localStorage.removeItem("memoryKey");
-    }
-  }
-
-  updateMemoryButtons() {
-    const hasMemory = this.memory !== null;
-    const mcButton = document.querySelector('[value="MC"]');
-    const mrButton = document.querySelector('[value="MR"]');
-
-    if (mcButton) mcButton.classList.toggle("shadow-color", !hasMemory);
-    if (mrButton) mrButton.classList.toggle("shadow-color", !hasMemory);
-  }
-
-  memoryhandler(e) {
-    const button = e.target.closest("button");
-    if (!button) return;
-
-    const action = button.textContent.trim();
-    let currentValue = 0;
-
-    try {
-      if (this.evalstr && this.evalstr !== this.ERROR) {
-        currentValue = parseFloat(eval(this.evalstr));
-      }
-    } catch (error) {
-      console.error("Error calculating current value:", error);
-      return;
-    }
-
-    switch (action) {
-      case "MC":
-        this.memory = null;
-        break;
-      case "MR":
-        if (this.memory !== null) {
-          this.evalstr = this.memory.toString();
-          this.resultstr = this.evalstr;
-        }
-        break;
-      case "M+":
-        if (this.memory === null) {
-          this.memory = currentValue;
-        } else {
-          this.memory += currentValue;
-        }
-        break;
-      case "M-":
-        if (this.memory === null) {
-          this.memory = -currentValue;
-        } else {
-          this.memory -= currentValue;
-        }
-        break;
-      case "MS":
-        this.memory = currentValue;
-        break;
-    }
-    this.setMemory();
-    this.updateMemoryButtons();
-    this.renderDisplay();
   }
 
   expi() {
