@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: utility.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: utility.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @fileoverview Main calculator module that initializes  calculator components
+ * @module ScientificCalculator
+ */
+
+import History from "./historyClass.js";
+import MemoryClass from "./memoryClass.js";
+import MathOperations from "./mathOperation.js";
+import Display from "./display.js";
+import InputHandler from "./input.js";
+import Mode from "./mode.js";
+import Core from "./core.js";
+
+/**
+ * Scientific calculator that coordinates display, input handling, history tracking,
+ * memory operations, and calculation functionality
+ * @class
+ */
+class ScientificCalculator {
+  /**
+   * Creates a new scientific calculator instance 
+   * @constructor
+   */
+  constructor() {
+    /**
+     * Default error message 
+     * @type {string}
+     */
+    this.ERROR = "Error";
+    
+    /**
+     * String  of the current expression to be evaluated
+     * @type {string}
+     */
+    this.evalstr = "";
+    
+    /**
+     * String  of the current calculation result
+     * @type {string}
+     */
+    this.resultstr = "";
+
+    /**
+     * Manages the calculator display
+     * @type {Display}
+     */
+    this.displayManager = new Display(this);
+    
+    /**
+     * Handles core calculation operations
+     * @type {Core}
+     */
+    this.coreCalculator = new Core(this);
+    
+    /**
+     * Manages calculation history
+     * @type {History}
+     */
+    this.History = new History(this);
+    
+    /**
+     * Handles memory operations (MS, MR, MC, M+, M-)
+     * @type {MemoryClass}
+     */
+    this.Memory = new MemoryClass(this);
+    
+    /**
+     * Provides mathematical operation handlers
+     * @type {MathOperations}
+     */
+    this.mathOperations = new MathOperations(this);
+    
+    /**
+     * Manages calculator modes (DEG/RAD, scientific notation)
+     * @type {Mode}
+     */
+    this.modeManager = new Mode(this);
+    
+    /**
+     * Processes user input from buttons and keyboard
+     * @type {InputHandler}
+     */
+    this.inputHandler = new InputHandler(this);
+
+    // Initialize the display on startup
+    this.renderDisplay();
+  }
+
+  /**
+   * Updates the calculator display with current values
+   * @returns {void}
+   */
+  renderDisplay() {
+    this.displayManager.renderDisplay();
+  }
+
+  /**
+   * Removes the last character from the current expression
+   * @returns {void}
+   */
+  backspace() {
+    this.coreCalculator.backspace();
+  }
+
+  /**
+   * Evaluates the current expression and displays the result
+   * @returns {void}
+   */
+  equals() {
+    this.coreCalculator.equals();
+  }
+}
+
+/**
+ * The calculator instance used throughout the application
+ * @type {ScientificCalculator}
+ */
+const calculator = new ScientificCalculator();</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-DropdownController.html">DropdownController</a></li><li><a href="module-ScientificCalculator.html">ScientificCalculator</a></li></ul><h3>Classes</h3><ul><li><a href="Core.html">Core</a></li><li><a href="Display.html">Display</a></li><li><a href="InputHandler.html">InputHandler</a></li><li><a href="MathOperations.html">MathOperations</a></li><li><a href="Mode.html">Mode</a></li><li><a href="history.html">history</a></li><li><a href="memoryClass.html">memoryClass</a></li><li><a href="module-ScientificCalculator-ScientificCalculator.html">ScientificCalculator</a></li></ul><h3>Global</h3><ul><li><a href="global.html#abs">abs</a></li><li><a href="global.html#ceil">ceil</a></li><li><a href="global.html#changeMode">changeMode</a></li><li><a href="global.html#cos">cos</a></li><li><a href="global.html#degbtnHandler">degbtnHandler</a></li><li><a href="global.html#degree">degree</a></li><li><a href="global.html#expi">expi</a></li><li><a href="global.html#exponent">exponent</a></li><li><a href="global.html#factorial">factorial</a></li><li><a href="global.html#factorialHandler">factorialHandler</a></li><li><a href="global.html#floor">floor</a></li><li><a href="global.html#getMemory">getMemory</a></li><li><a href="global.html#initEventListeners">initEventListeners</a></li><li><a href="global.html#inverse">inverse</a></li><li><a href="global.html#ln">ln</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#memoryhandler">memoryhandler</a></li><li><a href="global.html#pi">pi</a></li><li><a href="global.html#setMemory">setMemory</a></li><li><a href="global.html#signChange">signChange</a></li><li><a href="global.html#sin">sin</a></li><li><a href="global.html#square">square</a></li><li><a href="global.html#squareroot">squareroot</a></li><li><a href="global.html#tan">tan</a></li><li><a href="global.html#tenx">tenx</a></li><li><a href="global.html#updateMemoryButtons">updateMemoryButtons</a></li><li><a href="global.html#xy">xy</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Mar 19 2025 11:04:28 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
