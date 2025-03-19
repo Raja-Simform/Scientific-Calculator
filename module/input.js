@@ -114,8 +114,8 @@ class InputHandler {
      * @private
      */
     clickHandler(e) {
-        let targetbtn = e.target.closest("button");
-        let currentKey = targetbtn?.value;
+        const targetbtn = e.target.closest("button");
+        const currentKey = targetbtn?.value;
       
         if (!currentKey) {
           return;

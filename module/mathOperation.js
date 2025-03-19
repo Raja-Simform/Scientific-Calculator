@@ -210,7 +210,7 @@ class MathOperations {
       }
       
       if (num !== EMPTY_STRING) {
-        let factValue = this.factorial(Number(num));
+        const factValue = this.factorial(Number(num));
         this.calci.evalstr = this.calci.evalstr.slice(0, i + 1) + factValue;
         this.calci.resultstr += "!";
       }
@@ -233,11 +233,11 @@ class MathOperations {
     if (typeof this.calci.evalstr !== "string")
       this.calci.evalstr = this.calci.evalstr.toString();
     
-    let match = this.calci.evalstr.match(REGEX_NUMBER_END);
+    const match = this.calci.evalstr.match(REGEX_NUMBER_END);
     
     if (match) {
-      let num = Number(match[1]);
-      let toggled = num * -1;
+      const num = Number(match[1]);
+      const toggled = num * -1;
       this.calci.evalstr = this.calci.evalstr.replace(
         REGEX_NUMBER_END,
         `${toggled}`
@@ -257,11 +257,11 @@ class MathOperations {
     if (typeof this.calci.evalstr !== "string")
       this.calci.evalstr = this.calci.evalstr.toString();
     
-    let match = this.calci.evalstr.match(REGEX_NUMBER_DECIMAL_END);
+    const match = this.calci.evalstr.match(REGEX_NUMBER_DECIMAL_END);
     
     if (match) {
-      let num = Number(match[1]);
-      let inverse = `1/(${num})`;
+      const num = Number(match[1]);
+      const inverse = `1/(${num})`;
       this.calci.evalstr = this.calci.evalstr.replace(
         REGEX_NUMBER_DECIMAL_END,
         inverse
@@ -280,12 +280,12 @@ class MathOperations {
   expi() {
     if (!this.calci.evalstr || isNaN(Number(this.calci.evalstr))) return;
     
-    let num = Number(this.calci.evalstr);
+    const num = Number(this.calci.evalstr);
     this.exp = !this.exp;
     
     if (this.exp) {
-      let exponentStr = num.toExponential(2);
-      let [mantissa, exponent] = exponentStr.split("e");
+      const exponentStr = num.toExponential(2);
+      const [mantissa, exponent] = exponentStr.split("e");
       this.calci.evalstr = num.toString();
       this.calci.resultstr = `${mantissa}×10^${Number(exponent)}`;
     } else {
