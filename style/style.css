@@ -83,8 +83,9 @@ body {
   justify-content: center;
   gap: 2%;
 }
-.btn-shadow {
-  color: var(--shadow-color);
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 .btn-col1 {
   height: var(--btn-height);
