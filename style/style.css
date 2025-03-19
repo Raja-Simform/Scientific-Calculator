@@ -29,12 +29,13 @@ body {
   background-color: var(--calculator-bg-color);
 }
 .header {
-  height: 14%;
+  height: 15%;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   padding: 0 10px;
+  position: relative;
 }
 .result {
   max-width: 100%;
@@ -44,7 +45,7 @@ body {
   font-size: 40px;
 }
 .btn {
-  height: 90%;
+  height: 80%;
   width: 100%;
 }
 .toggle-btn {
@@ -185,20 +186,33 @@ span:hover {
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
-.trigno-dropdown-content a,
-.func-dropdown-content a {
+.fade-color {
+  color: var(--fade-color-button);
+}
+.trigno-dropdown-content button,
+.func-dropdown-content button {
   color: black;
   padding: 12px 16px;
+  width: 100%;
+  border: 0.3px solid black;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   text-decoration: none;
   display: block;
 }
-.trigno-dropdown-content a:hover,
-.func-dropdown-content a:hover {
+.trigno-dropdown-content button:hover,
+.func-dropdown-content button:hover {
   background-color: #ddd;
 }
 .show-trigno,
 .show-func {
   display: block;
+}
+.result::-webkit-scrollbar {
+  height: 8px;
+}
+.result{
+  -ms-overflow-style: none;  
+  scrollbar-width: none; 
 }
 @media (max-width: 500px) {
   .calculator {
@@ -217,4 +231,85 @@ span:hover {
   .func-dropdown {
     width: 50%;
   }
+}
+/* Updated history panel styles */
+.history-controls {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  display: flex;
+  align-items: center;
+}
+
+.history-toggle-btn,
+.clear-history-btn {
+  background-color: transparent;
+  border: none;
+  border-radius: 4px;
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.history-toggle-btn:hover,
+.clear-history-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.history-toggle-btn img,
+.clear-history-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+.history-panel {
+  position: absolute;
+  top:30px; /* Position below the header */
+  right: 0;
+  left: 0;
+  margin: 0 auto;
+  width: 100%;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  max-height: fit-content;
+  overflow-y: auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.history-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.history-panel h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.history-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.history-item {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+
+.history-item:hover {
+  background-color: #f5f5f5;
+}
+
+.no-history {
+  color: #888;
+  font-style: italic;
 }
